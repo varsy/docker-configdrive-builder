@@ -1,0 +1,13 @@
+#!/bin/sh
+if mountpoint -q /target; then
+	echo "Going to /target"
+   cd /target
+   if [ -f openstack/latest/user_data ]; then
+      mkisofs -R -V config-2 -o configdrive.iso .
+   else 
+      echo "You have no user_data file provided, sorry :-("
+   fi
+else
+	echo "/target is not a mountpoint."
+	echo "Please re-run this container with -v path/to/your/openstack:/target"
+fi
